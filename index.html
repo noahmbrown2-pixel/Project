@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Top 25 NFL Quarterbacks of All Time</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #013369;
+            --accent: #d50a0a;
+            --gold: #c9b037;
+            --silver: #b4b4b4;
+            --bronze: #ad8a56;
+            --dark: #0a0a0a;
+            --card-bg: #141414;
+            --text: #e8e8e8;
+            --text-muted: #999;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background: var(--dark);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #013369 0%, #0a0a2e 50%, #1a0a0a 100%);
+            padding: 80px 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: repeating-linear-gradient(
+                0deg,
+                transparent,
+                transparent 40px,
+                rgba(255,255,255,0.02) 40px,
+                rgba(255,255,255,0.02) 41px
+            );
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-family: 'Oswald', sans-serif;
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+            background: linear-gradient(to right, #ffffff, #c9b037);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero .subtitle {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.3rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 4px;
+        }
+
+        .hero .intro {
+            margin-top: 20px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            color: #bbb;
+            font-size: 1.05rem;
+        }
+
+        /* Filter Bar */
+        .filter-bar {
+            background: #111;
+            border-bottom: 2px solid var(--accent);
+            padding: 15px 20px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            font-family: 'Oswald', sans-serif;
+            background: transparent;
+            color: var(--text-muted);
+            border: 1px solid #333;
+            padding: 8px 20px;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: all 0.3s;
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: var(--accent);
+            color: white;
+            border-color: var(--accent);
+        }
+
+        /* Grid */
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .qb-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+            gap: 24px;
+        }
+
+        /* QB Card */
+        .qb-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid #222;
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+        }
+
+        .qb-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.5);
+        }
+
+        .qb-card.top3 {
+            border-color: var(--gold);
+            box-shadow: 0 0 20px rgba(201, 176, 55, 0.15);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            padding: 24px;
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+        }
+
+        .top3 .card-header {
+            background: linear-gradient(135deg, #1a1a0e, #2e2a16);
+        }
+
+        .rank-badge {
+            flex-shrink: 0;
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: #222;
+            color: var(--text);
+            border: 2px solid #333;
+        }
+
+        .rank-1 .rank-badge {
+            background: linear-gradient(135deg, #c9b037, #a08c2e);
+            color: #1a1a0a;
+            border-color: #e0c84a;
+            font-size: 1.8rem;
+        }
+
+        .rank-2 .rank-badge {
+            background: linear-gradient(135deg, #b4b4b4, #8a8a8a);
+            color: #1a1a1a;
+            border-color: #ccc;
+        }
+
+        .rank-3 .rank-badge {
+            background: linear-gradient(135deg, #ad8a56, #8a6a3a);
+            color: #1a1a1a;
+            border-color: #c9a066;
+        }
+
+        .player-info h2 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.6rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            line-height: 1.2;
+        }
+
+        .player-info .years {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            margin-top: 2px;
+        }
+
+        .player-info .team {
+            color: var(--accent);
+            font-family: 'Oswald', sans-serif;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .card-body {
+            padding: 20px 24px 24px;
+        }
+
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+
+        .stat {
+            text-align: center;
+            background: #1a1a1a;
+            padding: 10px 4px;
+            border-radius: 8px;
+        }
+
+        .stat-value {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: white;
+        }
+
+        .stat-label {
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            letter-spacing: 0.5px;
+            margin-top: 2px;
+        }
+
+        .achievements {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .badge {
+            background: rgba(213, 10, 10, 0.15);
+            color: #ff6b6b;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.72rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .badge.ring {
+            background: rgba(201, 176, 55, 0.2);
+            color: var(--gold);
+        }
+
+        .badge.mvp {
+            background: rgba(100, 149, 237, 0.2);
+            color: cornflowerblue;
+        }
+
+        /* Expanded card details */
+        .card-details {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease;
+            padding: 0 24px;
+        }
+
+        .qb-card.expanded .card-details {
+            max-height: 200px;
+            padding: 0 24px 20px;
+        }
+
+        .card-details p {
+            color: #bbb;
+            font-size: 0.9rem;
+            line-height: 1.7;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            border-top: 1px solid #222;
+        }
+
+        @media (max-width: 500px) {
+            .qb-grid {
+                grid-template-columns: 1fr;
+            }
+            .stats-row {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+
+<section class="hero">
+    <div class="hero-content">
+        <p class="subtitle">The Greatest to Ever Throw It</p>
+        <h1>Top 25 NFL Quarterbacks of All Time</h1>
+        <p class="intro">From the early pioneers to the modern-era gunslingers, these 25 quarterbacks defined the position, rewrote the record books, and cemented their legacies as the greatest to ever take the snap.</p>
+    </div>
+</section>
+
+<nav class="filter-bar">
+    <button class="filter-btn active" data-filter="all">All QBs</button>
+    <button class="filter-btn" data-filter="modern">Modern Era</button>
+    <button class="filter-btn" data-filter="classic">Classic Era</button>
+    <button class="filter-btn" data-filter="rings">3+ Rings</button>
+</nav>
+
+<div class="container">
+    <div class="qb-grid" id="qbGrid"></div>
+</div>
+
+<footer>
+    <p>Rankings based on career achievements, statistics, impact, and legacy. Stats reflect career totals.</p>
+</footer>
+
+<script>
+const quarterbacks = [
+    {
+        rank: 1,
+        name: "Tom Brady",
+        team: "Patriots / Buccaneers",
+        years: "2000–2022",
+        era: "modern",
+        rings: 7,
+        stats: { yards: "89,214", tds: 649, prating: "97.2", probowls: 15 },
+        achievements: ["7x Champion", "5x SB MVP", "3x MVP"],
+        bio: "The GOAT. Tom Brady's seven Super Bowl victories and five Super Bowl MVP awards make him the most accomplished quarterback in NFL history. A 6th-round pick who became the greatest winner the sport has ever seen."
+    },
+    {
+        rank: 2,
+        name: "Joe Montana",
+        team: "49ers / Chiefs",
+        years: "1979–1994",
+        era: "classic",
+        rings: 4,
+        stats: { yards: "40,551", tds: 273, prating: "92.3", probowls: 8 },
+        achievements: ["4x Champion", "3x SB MVP", "2x MVP"],
+        bio: "Joe Cool was the ultimate clutch performer. Montana went 4-0 in Super Bowls and never threw an interception in those games. He engineered 34 fourth-quarter comebacks in his legendary career."
+    },
+    {
+        rank: 3,
+        name: "Peyton Manning",
+        team: "Colts / Broncos",
+        years: "1998–2015",
+        era: "modern",
+        rings: 2,
+        stats: { yards: "71,940", tds: 539, prating: "96.5", probowls: 14 },
+        achievements: ["2x Champion", "5x MVP", "14x Pro Bowl"],
+        bio: "The Sheriff revolutionized the quarterback position with his cerebral approach to the game. Manning's five MVP awards are the most by any player in NFL history."
+    },
+    {
+        rank: 4,
+        name: "Johnny Unitas",
+        team: "Colts / Chargers",
+        years: "1956–1973",
+        era: "classic",
+        rings: 3,
+        stats: { yards: "40,239", tds: 290, prating: "78.2", probowls: 10 },
+        achievements: ["3x Champion", "3x MVP", "10x Pro Bowl"],
+        bio: "Johnny U set the standard for the modern quarterback. His record of 47 consecutive games with a touchdown pass stood for 52 years. He was the prototype for every great QB who followed."
+    },
+    {
+        rank: 5,
+        name: "Patrick Mahomes",
+        team: "Chiefs",
+        years: "2017–present",
+        era: "modern",
+        rings: 3,
+        stats: { yards: "28,424", tds: 210, prating: "97.5", probowls: 7 },
+        achievements: ["3x Champion", "3x SB MVP", "2x MVP"],
+        bio: "Mahomes has already built a Hall of Fame resume before turning 30. With three Super Bowl titles and two MVPs, he's the most electrifying quarterback of his generation."
+    },
+    {
+        rank: 6,
+        name: "John Elway",
+        team: "Broncos",
+        years: "1983–1998",
+        era: "classic",
+        rings: 2,
+        stats: { yards: "51,475", tds: 300, prating: "79.9", probowls: 9 },
+        achievements: ["2x Champion", "1x MVP", "9x Pro Bowl"],
+        bio: "Elway was the ultimate competitor, leading the Broncos to five Super Bowl appearances and capping his career with back-to-back championships. His helicopter run in Super Bowl XXXII is an iconic NFL moment."
+    },
+    {
+        rank: 7,
+        name: "Dan Marino",
+        team: "Dolphins",
+        years: "1983–1999",
+        era: "classic",
+        rings: 0,
+        stats: { yards: "61,361", tds: 420, prating: "86.4", probowls: 9 },
+        achievements: ["1x MVP", "9x Pro Bowl", "All-Decade 1980s"],
+        bio: "Marino shattered passing records and redefined what was possible through the air. His 1984 season — 5,084 yards and 48 TDs — was decades ahead of its time."
+    },
+    {
+        rank: 8,
+        name: "Brett Favre",
+        team: "Packers / Vikings / Jets",
+        years: "1991–2010",
+        era: "classic",
+        rings: 1,
+        stats: { yards: "71,838", tds: 508, prating: "86.0", probowls: 11 },
+        achievements: ["1x Champion", "3x MVP", "Iron Man"],
+        bio: "The Gunslinger's 297 consecutive starts is a record that may never be broken. Favre's fearless style and three consecutive MVP awards made him one of the most exciting players in NFL history."
+    },
+    {
+        rank: 9,
+        name: "Aaron Rodgers",
+        team: "Packers / Jets",
+        years: "2005–present",
+        era: "modern",
+        rings: 1,
+        stats: { yards: "59,055", tds: 475, prating: "103.6", probowls: 10 },
+        achievements: ["1x Champion", "4x MVP", "SB XLV MVP"],
+        bio: "Rodgers boasts the highest career passer rating in NFL history. His four MVP awards and surgical precision make him arguably the most talented pure passer the game has ever seen."
+    },
+    {
+        rank: 10,
+        name: "Drew Brees",
+        team: "Chargers / Saints",
+        years: "2001–2020",
+        era: "modern",
+        rings: 1,
+        stats: { yards: "80,358", tds: 571, prating: "98.7", probowls: 13 },
+        achievements: ["1x Champion", "SB XLIV MVP", "Yards Record"],
+        bio: "Brees held the all-time passing yards record and led the Saints to their only Super Bowl victory. He completed over 67% of his passes for his career — an extraordinary mark of consistency."
+    },
+    {
+        rank: 11,
+        name: "Terry Bradshaw",
+        team: "Steelers",
+        years: "1970–1983",
+        era: "classic",
+        rings: 4,
+        stats: { yards: "27,989", tds: 212, prating: "70.9", probowls: 3 },
+        achievements: ["4x Champion", "2x SB MVP", "1x MVP"],
+        bio: "Bradshaw's four Super Bowl rings powered the Steelers dynasty of the 1970s. A strong-armed gunslinger, he was at his best on the biggest stage."
+    },
+    {
+        rank: 12,
+        name: "Roger Staubach",
+        team: "Cowboys",
+        years: "1969–1979",
+        era: "classic",
+        rings: 2,
+        stats: { yards: "22,700", tds: 153, prating: "83.4", probowls: 6 },
+        achievements: ["2x Champion", "SB VI MVP", "Captain Comeback"],
+        bio: "Captain Comeback led 23 fourth-quarter comebacks in his career. Staubach was a Heisman Trophy winner, Navy veteran, and the heart of America's Team."
+    },
+    {
+        rank: 13,
+        name: "Steve Young",
+        team: "49ers / Buccaneers",
+        years: "1985–1999",
+        era: "classic",
+        rings: 3,
+        stats: { yards: "33,124", tds: 232, prating: "96.8", probowls: 7 },
+        achievements: ["3x Champion", "SB XXIX MVP", "2x MVP"],
+        bio: "Young stepped out of Montana's shadow to become one of the most dynamic dual-threat quarterbacks ever. His six-touchdown Super Bowl XXIX performance remains legendary."
+    },
+    {
+        rank: 14,
+        name: "Troy Aikman",
+        team: "Cowboys",
+        years: "1989–2000",
+        era: "classic",
+        rings: 3,
+        stats: { yards: "32,942", tds: 165, prating: "81.6", probowls: 6 },
+        achievements: ["3x Champion", "SB XXVII MVP", "6x Pro Bowl"],
+        bio: "Aikman's pinpoint accuracy and poise anchored the Cowboys dynasty of the 1990s. He went 3-0 in Super Bowls and completed over 80% in the big game."
+    },
+    {
+        rank: 15,
+        name: "Russell Wilson",
+        team: "Seahawks / Broncos / Steelers",
+        years: "2012–present",
+        era: "modern",
+        rings: 1,
+        stats: { yards: "43,653", tds: 334, prating: "100.3", probowls: 9 },
+        achievements: ["1x Champion", "9x Pro Bowl", "DangeRuss"],
+        bio: "Wilson defied the odds as a shorter quarterback to become one of the best of his generation. His deep-ball accuracy and clutch play led Seattle to consecutive Super Bowl appearances."
+    },
+    {
+        rank: 16,
+        name: "Bart Starr",
+        team: "Packers",
+        years: "1956–1971",
+        era: "classic",
+        rings: 5,
+        stats: { yards: "24,718", tds: 152, prating: "80.5", probowls: 4 },
+        achievements: ["5x Champion", "2x SB MVP", "Ice Bowl QB"],
+        bio: "Starr won the first two Super Bowls and five NFL championships with the Packers. His legendary quarterback sneak in the Ice Bowl remains one of football's defining moments."
+    },
+    {
+        rank: 17,
+        name: "Ben Roethlisberger",
+        team: "Steelers",
+        years: "2004–2021",
+        era: "modern",
+        rings: 2,
+        stats: { yards: "64,088", tds: 418, prating: "93.5", probowls: 6 },
+        achievements: ["2x Champion", "Youngest SB Winner", "6x Pro Bowl"],
+        bio: "Big Ben's ability to extend plays and make throws under pressure was unmatched. He became the youngest quarterback to win a Super Bowl and made three appearances overall."
+    },
+    {
+        rank: 18,
+        name: "Dan Fouts",
+        team: "Chargers",
+        years: "1973–1987",
+        era: "classic",
+        rings: 0,
+        stats: { yards: "43,040", tds: 254, prating: "80.2", probowls: 6 },
+        achievements: ["6x Pro Bowl", "All-Decade 1980s", "Air Coryell"],
+        bio: "Fouts and the Air Coryell offense changed the way football was played. He was the first QB to throw for 4,000 yards in three consecutive seasons."
+    },
+    {
+        rank: 19,
+        name: "Eli Manning",
+        team: "Giants",
+        years: "2004–2019",
+        era: "modern",
+        rings: 2,
+        stats: { yards: "57,023", tds: 366, prating: "84.1", probowls: 4 },
+        achievements: ["2x Champion", "2x SB MVP", "Iron Man"],
+        bio: "Eli twice slayed the unbeatable Patriots dynasty in the Super Bowl. His two championship runs, including the helmet catch game, cemented his place among the all-time greats."
+    },
+    {
+        rank: 20,
+        name: "Kurt Warner",
+        team: "Rams / Cardinals / Giants",
+        years: "1998–2009",
+        era: "modern",
+        rings: 1,
+        stats: { yards: "32,344", tds: 208, prating: "93.7", probowls: 4 },
+        achievements: ["1x Champion", "2x MVP", "SB XXXIV MVP"],
+        bio: "The greatest undrafted story in NFL history. Warner went from stocking grocery shelves to winning Super Bowl MVP and leading the Greatest Show on Turf."
+    },
+    {
+        rank: 21,
+        name: "Lamar Jackson",
+        team: "Ravens",
+        years: "2018–present",
+        era: "modern",
+        rings: 1,
+        stats: { yards: "19,828", tds: 140, prating: "101.0", probowls: 4 },
+        achievements: ["1x Champion", "2x MVP", "Action Jackson"],
+        bio: "Jackson redefined the quarterback position with his unprecedented rushing ability. His back-to-back MVP awards and dual-threat dominance make him a generational talent."
+    },
+    {
+        rank: 22,
+        name: "Philip Rivers",
+        team: "Chargers / Colts",
+        years: "2004–2020",
+        era: "modern",
+        rings: 0,
+        stats: { yards: "63,440", tds: 421, prating: "95.2", probowls: 8 },
+        achievements: ["8x Pro Bowl", "All-2010s Team", "Iron Man"],
+        bio: "Rivers' fiery competitiveness and sidearm delivery made him one of the most unique quarterbacks of his generation. His 240 consecutive starts speak to his durability and toughness."
+    },
+    {
+        rank: 23,
+        name: "Fran Tarkenton",
+        team: "Vikings / Giants",
+        years: "1961–1978",
+        era: "classic",
+        rings: 0,
+        stats: { yards: "47,003", tds: 342, prating: "80.4", probowls: 9 },
+        achievements: ["1x MVP", "9x Pro Bowl", "Scrambler"],
+        bio: "Tarkenton was the original scrambling quarterback. He retired as the NFL's all-time leader in passing yards and touchdowns, and his improvisational style was decades ahead of its time."
+    },
+    {
+        rank: 24,
+        name: "Otto Graham",
+        team: "Browns",
+        years: "1946–1955",
+        era: "classic",
+        rings: 7,
+        stats: { yards: "23,584", tds: 174, prating: "86.6", probowls: 7 },
+        achievements: ["7x Champion", "3x MVP", "10 Title Games"],
+        bio: "Graham led the Browns to 10 championship games in 10 seasons, winning seven of them. His winning percentage is the highest of any starting quarterback in professional football history."
+    },
+    {
+        rank: 25,
+        name: "Josh Allen",
+        team: "Bills",
+        years: "2018–present",
+        era: "modern",
+        rings: 0,
+        stats: { yards: "24,516", tds: 175, prating: "92.8", probowls: 4 },
+        achievements: ["2x Pro Bowl", "Dual Threat", "AFC Beast"],
+        bio: "Allen's rocket arm and bulldozing running style make him the most physically gifted quarterback in the league today. He's carried the Bills back to perennial contender status."
+    }
+];
+
+function renderCards(filter = 'all') {
+    const grid = document.getElementById('qbGrid');
+    grid.innerHTML = '';
+
+    const filtered = quarterbacks.filter(qb => {
+        if (filter === 'all') return true;
+        if (filter === 'modern') return qb.era === 'modern';
+        if (filter === 'classic') return qb.era === 'classic';
+        if (filter === 'rings') return qb.rings >= 3;
+        return true;
+    });
+
+    filtered.forEach((qb, i) => {
+        const isTop3 = qb.rank <= 3;
+        const card = document.createElement('div');
+        card.className = `qb-card rank-${qb.rank}${isTop3 ? ' top3' : ''}`;
+        card.onclick = () => card.classList.toggle('expanded');
+
+        card.innerHTML = `
+            <div class="card-header">
+                <div class="rank-badge">#${qb.rank}</div>
+                <div class="player-info">
+                    <h2>${qb.name}</h2>
+                    <div class="team">${qb.team}</div>
+                    <div class="years">${qb.years}</div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="stats-row">
+                    <div class="stat">
+                        <div class="stat-value">${qb.stats.yards}</div>
+                        <div class="stat-label">Pass Yards</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value">${qb.stats.tds}</div>
+                        <div class="stat-label">Pass TDs</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value">${qb.stats.prating}</div>
+                        <div class="stat-label">Passer Rtg</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value">${qb.stats.probowls}</div>
+                        <div class="stat-label">Pro Bowls</div>
+                    </div>
+                </div>
+                <div class="achievements">
+                    ${qb.achievements.map(a => {
+                        let cls = 'badge';
+                        if (a.toLowerCase().includes('champion')) cls += ' ring';
+                        if (a.toLowerCase().includes('mvp')) cls += ' mvp';
+                        return `<span class="${cls}">${a}</span>`;
+                    }).join('')}
+                </div>
+            </div>
+            <div class="card-details">
+                <p>${qb.bio}</p>
+            </div>
+        `;
+
+        grid.appendChild(card);
+    });
+}
+
+// Filter buttons
+document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        renderCards(btn.dataset.filter);
+    });
+});
+
+// Initial render
+renderCards();
+</script>
+
+</body>
+</html>
